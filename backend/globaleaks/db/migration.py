@@ -222,8 +222,8 @@ def perform_migration(version):
             session_new = sessionmaker(bind=engine)()
 
             # Here is instanced the migration script
-            MigrationModule = importlib.import_module("globaleaks.db.migrations.update_%d" % (version + 1))
-            migration_script = MigrationModule.MigrationScript(migration_mapping, version, session_old, session_new)
+            migration_module = importlib.import_module("globaleaks.db.migrations.update_%d" % (version + 1))
+            migration_script = migration_module.MigrationScript(migration_mapping, version, session_old, session_new)
 
             log.info("Migrating table:")
 

@@ -10,11 +10,12 @@ from globaleaks.settings import Settings
 from globaleaks.utils.fs import read_json_file
 
 
-def extract_ids(obj, ret=[]):
+def extract_ids(obj, ret=None):
     """
     Utility function to extract ids from questionnaires
     and questions data structures.
     """
+    ret = []
     if obj.get('id', None):
         ret.append(obj['id'])
 

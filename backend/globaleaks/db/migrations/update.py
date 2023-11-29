@@ -49,9 +49,15 @@ class MigrationBase(object):
         self.session_new.close()
 
     def prologue(self):
+        """
+            Is empty because is not implemented yet
+        """
         pass
 
     def epilogue(self):
+        """
+            Is empty because is not implemented yet
+        """
         pass
 
     def generic_migration_function(self, model_name):

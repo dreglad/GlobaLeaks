@@ -964,7 +964,7 @@ class TestHandler(TestGLWithPopulatedDB):
 
         if role is not None:
             if role == 'whistlebower':
-                session = initialize_submission_session()
+                session = initialize_submission_session('')
             else:
                 session = Sessions.new(1, user_id, 1, "John Doe", role, USER_PRV_KEY)
 

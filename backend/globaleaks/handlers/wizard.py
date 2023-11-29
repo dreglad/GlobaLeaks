@@ -65,7 +65,7 @@ def db_wizard(session, tid, hostname, request):
         admin_desc = models.User().dict(language)
         admin_desc['username'] = request['admin_username']
         admin_desc['name'] = request['admin_name']
-        admin_desc['name'] = request['admin_name']
+        # admin_desc['name'] = request['admin_name']
         admin_desc['mail_address'] = request['admin_mail_address']
         admin_desc['language'] = language
         admin_desc['role'] = 'admin'
