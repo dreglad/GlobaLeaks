@@ -1,22 +1,20 @@
 FROM debian:12-slim
 
-RUN apt-get update -q && \
-    apt-get install -y wget lsb-release && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+ADD https://deb.globaleaks.org/install-globaleaks.sh install.sh
 
-RUN wget https://deb.globaleaks.org/install-globaleaks.sh
-RUN chmod +x install-globaleaks.sh
-RUN ./install-globaleaks.sh -y -n
-
-RUN apt-get update -q && \
-    apt-get install -y globaleaks && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-EXPOSE 8080
-EXPOSE 8443
+ARG VERSION
+RUN bash install.sh -y -n -v "${VERSION}" && \
+    apt-get install curl -y && \
+    rm -rf install.* /var/lib/apt/lists/*
 
 USER 1337
 
-CMD ["/usr/bin/python3", "/usr/bin/globaleaks", "--working-path=/var/globaleaks/", "-n"]
+WORKDIR /var/globaleaks
+VOLUME /var/globaleaks
+
+HEALTHCHECK --interval=10s --timeout=3s \
+  CMD curl -f -k https://localhost:8443/api/health || exit 1
+
+EXPOSE 8443 8080
+
+CMD ["globaleaks", "-n"]
